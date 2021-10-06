@@ -74,6 +74,7 @@ $(function () {
   initializeLiff(liffId);
 
   $(".open-camera-btn").click(function () {
+    console.log("open");
     scanCode();
   });
 
