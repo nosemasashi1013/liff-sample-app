@@ -1,10 +1,3 @@
-$(document).ready(function () {
-  // liffId: LIFF URL "https://liff.line.me/xxx"のxxxに該当する箇所
-  // LINE DevelopersのLIFF画面より確認可能
-  var liffId = "1656501658-pq7GAjnA";
-  initializeLiff(liffId);
-});
-
 function initializeLiff(liffId) {
   liff
     .init({
@@ -26,23 +19,12 @@ function scanCode() {
   liff
     .scanCodeV2()
     .then((result) => {
+      console.log(result);
       const stringifiedResult = result.value;
       console.log(stringifiedResult);
-      liff
-        .sendMessages([
-          {
-            type: "text",
-            text: stringifiedResult,
-          },
-        ])
-        .then(() => {
-          liff.closeWindow();
-        })
-        .catch((error) => {
-          window.alert("Error sending message: " + error);
-        });
     })
     .catch((err) => {
+      alert(err);
       alert("scanCode failed!");
     });
 }
@@ -73,6 +55,10 @@ function sendMessages(text) {
 }
 
 $(function () {
+  // liffId: LIFF URL "https://liff.line.me/xxx"のxxxに該当する箇所
+  // LINE DevelopersのLIFF画面より確認可能
+  var liffId = "1656501658-pq7GAjnA";
+  initializeLiff(liffId);
   $(".open-camera-btn").click(function () {
     console.log("camera open");
     scanCode();
