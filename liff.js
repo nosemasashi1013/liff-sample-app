@@ -1,3 +1,10 @@
+$(document).ready(function () {
+  // liffId: LIFF URL "https://liff.line.me/xxx"のxxxに該当する箇所
+  // LINE DevelopersのLIFF画面より確認可能
+  var liffId = "1656501658-pq7GAjnA";
+  initializeLiff(liffId);
+});
+
 function initializeLiff(liffId) {
   liff
     .init({
@@ -61,13 +68,6 @@ function sendMessages(text) {
       alert("Failed to send message " + error);
     });
 }
-
-$(document).ready(function () {
-  // liffId: LIFF URL "https://liff.line.me/xxx"のxxxに該当する箇所
-  // LINE DevelopersのLIFF画面より確認可能
-  var liffId = "1656501658-pq7GAjnA";
-  initializeLiff(liffId);
-});
 
 $(function () {
   // liffId: LIFF URL "https://liff.line.me/xxx"のxxxに該当する箇所
