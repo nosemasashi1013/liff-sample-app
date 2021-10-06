@@ -71,3 +71,10 @@ function sendMessages(text) {
       alert("Failed to send message " + error);
     });
 }
+
+$(function () {
+  $(".open-camera-btn").click(function () {
+    alert("camera open");
+    scanCode();
+  });
+});
