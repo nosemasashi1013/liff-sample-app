@@ -37,6 +37,7 @@
       <button type="submit" class="mt-4 btn btn-primary submit-btn">
         登録する
       </button>
+      <h3 id="result">Something is going to happen here...</h3>
     </form>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -55,6 +56,23 @@
       charset="utf-8"
       src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"
     ></script>
-    <script src="liff.js"></script>
+    <!-- <script src="liff.js"></script> -->
+    <script>
+      async function scanCodeV2() {
+        try {
+          const result = await liff.scanCodeV2();
+          document.querySelector("#result").innerHTML = result.value;
+        } catch (error) {
+          console.log("scanCodeV2", error);
+        }
+      }
+      async function main() {
+        await liff.init({ liffId: "1653575653-1ygAp27X" });
+        if (!liff.isLoggedIn()) {
+          liff.login();
+        }
+      }
+      main();
+    </script>
   </body>
 </html>
