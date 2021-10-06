@@ -5,8 +5,7 @@ $(function () {
   initializeLiff(liffId);
 
   $(".open-camera-btn").click(function () {
-    console.log("camera open");
-    scanCode();
+    scanCodeV2();
   });
 
   $(".submit-btn").click(function () {
@@ -20,58 +19,67 @@ $(function () {
   });
 });
 
-function initializeLiff(liffId) {
-  liff
-    .init({
-      liffId: liffId,
-    })
-    .then(() => {
-      // Webブラウザからアクセスされた場合は、LINEにログインする
-      if (!liff.isInClient() && !liff.isLoggedIn()) {
-        window.alert("LINEアカウントにログインしてください。");
-        liff.login({ redirectUri: location.href });
-      }
-    })
-    .catch((err) => {
-      console.log("LIFF Initialization failed ", err);
-    });
+// function initializeLiff(liffId) {
+//   liff
+//     .init({
+//       liffId: liffId,
+//     })
+//     .then(() => {
+//       // Webブラウザからアクセスされた場合は、LINEにログインする
+//       if (!liff.isInClient() && !liff.isLoggedIn()) {
+//         window.alert("LINEアカウントにログインしてください。");
+//         liff.login({ redirectUri: location.href });
+//       }
+//     })
+//     .catch((err) => {
+//       console.log("LIFF Initialization failed ", err);
+//     });
+// }
+
+async function initializeLiff(liffId) {
+  await liff.init({ liffId: liffId });
+  if (!liff.isLoggedIn()) {
+    liff.login();
+  }
+}
+
+async function scanCodeV2() {
+  try {
+    const result = await liff.scanCodeV2();
+    // document.querySelector("#result").innerHTML = result.value;
+    alert(result);
+  } catch (error) {
+    console.log("scanCodeV2", error);
+  }
 }
 
 // QRコードリーダーを表示する
 function scanCode() {
   console.log("scanCode");
+
   liff
-    .init({
-      liffId: liffId,
-    })
-    .then(() => {
+    .scanCodeV2()
+    .then((result) => {
+      console.log(result);
+      const stringifiedResult = result.value;
+      console.log(stringifiedResult);
       liff
-        .scanCodeV2()
-        .then((result) => {
-          console.log(result);
-          const stringifiedResult = result.value;
-          console.log(stringifiedResult);
-          liff
-            .sendMessages([
-              {
-                type: "text",
-                text: stringifiedResult,
-              },
-            ])
-            .then(() => {
-              liff.closeWindow();
-            })
-            .catch((error) => {
-              window.alert("Error sending message: " + error);
-            });
+        .sendMessages([
+          {
+            type: "text",
+            text: stringifiedResult,
+          },
+        ])
+        .then(() => {
+          liff.closeWindow();
         })
-        .catch((err) => {
-          alert(err);
-          alert("scanCode failed!");
+        .catch((error) => {
+          window.alert("Error sending message: " + error);
         });
     })
     .catch((err) => {
-      console.log(err);
+      alert(err);
+      alert("scanCode failed!");
     });
 }
 
