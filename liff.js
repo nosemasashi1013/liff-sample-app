@@ -16,6 +16,19 @@ function initializeLiff(liffId) {
                 window.alert("LINEアカウントにログインしてください。");
                 liff.login({redirectUri: location.href});
             }
+            liff.scanCode().then(result => {
+                const stringifiedResult = result.value;
+                liff.sendMessages([{
+                    'type': 'text',
+                    'text': stringifiedResult
+                }]).then(() => {
+                    liff.closeWindow();
+                }).catch((error) => {
+                    window.alert('Error sending message: ' + error);
+                });
+            }).catch(err => {
+                window.alert('scanCode failed!');
+            });
         })
         .catch((err) => {
             console.log('LIFF Initialization failed ', err);
