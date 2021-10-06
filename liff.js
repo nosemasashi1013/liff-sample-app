@@ -1,24 +1,3 @@
-$(function () {
-  // liffId: LIFF URL "https://liff.line.me/xxx"のxxxに該当する箇所
-  // LINE DevelopersのLIFF画面より確認可能
-  var liffId = "1656501658-pq7GAjnA";
-  initializeLiff(liffId);
-
-  $(".open-camera-btn").click(function () {
-    scanCodeV2();
-  });
-
-  $(".submit-btn").click(function () {
-    var date = $('input[type="date"]').val();
-    var name = $('input[type="text"]').val();
-
-    var msg = `希望日：${date}\n氏名：${name}`;
-    sendMessages(msg);
-
-    return false;
-  });
-});
-
 function initializeLiff(liffId) {
   liff
     .init({
@@ -83,6 +62,34 @@ function sendMessages(text) {
     });
 }
 
+$(document).ready(function () {
+  // liffId: LIFF URL "https://liff.line.me/xxx"のxxxに該当する箇所
+  // LINE DevelopersのLIFF画面より確認可能
+  var liffId = "1656501658-pq7GAjnA";
+  initializeLiff(liffId);
+});
+
+$(function () {
+  // liffId: LIFF URL "https://liff.line.me/xxx"のxxxに該当する箇所
+  // LINE DevelopersのLIFF画面より確認可能
+  var liffId = "1656501658-pq7GAjnA";
+  initializeLiff(liffId);
+
+  $(".open-camera-btn").click(function () {
+    scanCodeV2();
+  });
+
+  $(".submit-btn").click(function () {
+    var date = $('input[type="date"]').val();
+    var name = $('input[type="text"]').val();
+
+    var msg = `希望日：${date}\n氏名：${name}`;
+    sendMessages(msg);
+
+    return false;
+  });
+});
+
 // $(document).ready(function () {
 //   // liffId: LIFF URL "https://liff.line.me/xxx"のxxxに該当する箇所
 //   // LINE DevelopersのLIFF画面より確認可能
@@ -140,23 +147,6 @@ function sendMessages(text) {
 //   }
 // }
 
-// LINEトーク画面上でメッセージ送信
-function sendMessages(text) {
-  liff
-    .sendMessages([
-      {
-        type: "text",
-        text: text,
-      },
-    ])
-    .then(function () {
-      liff.closeWindow();
-    })
-    .catch(function (error) {
-      alert("Failed to send message " + error);
-    });
-}
-
 // $(function () {
 //   $(".open-camera-btn").click(function () {
 //     scanCode();
@@ -174,65 +164,65 @@ function sendMessages(text) {
 //   });
 // });
 
-window.onload = function () {
-  const defaultLiffId = "1656501658-pq7GAjnA";
-  initializeLiff(defaultLiffId);
-};
+// window.onload = function () {
+//   const defaultLiffId = "1656501658-pq7GAjnA";
+//   initializeLiff(defaultLiffId);
+// };
 
-function initializeLiff(myLiffId) {
-  liff
-    .init({
-      liffId: myLiffId,
-    })
-    .then(() => {
-      liff
-        .scanCode()
-        .then((result) => {
-          const stringifiedResult = result.value;
-          liff
-            .sendMessages([
-              {
-                type: "text",
-                text: stringifiedResult,
-              },
-            ])
-            .then(() => {
-              liff.closeWindow();
-            })
-            .catch((error) => {
-              window.alert("Error sending message: " + error);
-            });
-        })
-        .catch((err) => {
-          window.alert("scanCode failed!");
-        });
-    })
-    .catch((err) => {
-      window.alert("Something went wrong with LIFF initialization.");
-    });
-}
+// function initializeLiff(myLiffId) {
+//   liff
+//     .init({
+//       liffId: myLiffId,
+//     })
+//     .then(() => {
+//       liff
+//         .scanCode()
+//         .then((result) => {
+//           const stringifiedResult = result.value;
+//           liff
+//             .sendMessages([
+//               {
+//                 type: "text",
+//                 text: stringifiedResult,
+//               },
+//             ])
+//             .then(() => {
+//               liff.closeWindow();
+//             })
+//             .catch((error) => {
+//               window.alert("Error sending message: " + error);
+//             });
+//         })
+//         .catch((err) => {
+//           window.alert("scanCode failed!");
+//         });
+//     })
+//     .catch((err) => {
+//       window.alert("Something went wrong with LIFF initialization.");
+//     });
+// }
 
-liff
-  .init({
-    liffId: "1656501658-pq7GAjnA", // liffIdを指定。line://app/XXXXXの部分
-  })
-  .then(() => {
-    // 処理はここから
-  })
-  .catch((err) => {
-    // エラー処理
-    console.log(err.code, err.message);
-  });
+// liff
+//   .init({
+//     liffId: "1656501658-pq7GAjnA", // liffIdを指定。line://app/XXXXXの部分
+//   })
+//   .then(() => {
+//     // 処理はここから
+//   })
+//   .catch((err) => {
+//     // エラー処理
+//     console.log(err.code, err.message);
+//   });
 
-document.getElementById("qr_button").addEventListener("click", function () {
-  if (liff.isInClient()) {
-    liff
-      .scanCodeV2()
-      .then((result) => {
-        document.getElementById("qr_text").textContent = result.value;
-      })
-      .catch((err) => {
-        document.getElementById("qr_text").textContent = err.message;
-      });
-  }
-});
+// document.getElementById("qr_button").addEventListener("click", function () {
+//   if (liff.isInClient()) {
+//     liff
+//       .scanCodeV2()
+//       .then((result) => {
+//         document.getElementById("qr_text").textContent = result.value;
+//       })
+//       .catch((err) => {
+//         document.getElementById("qr_text").textContent = err.message;
+//       });
+//   }
+// });
