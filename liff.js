@@ -23,8 +23,9 @@ function initializeLiff(liffId) {
 }
 
 // QRコードリーダーを表示する
-function scanCode() {
-  liff.scanCodeV2();
+async function scanCode() {
+  await initializeLiff(liffId);
+  await liff.scanCodeV2();
   // .then((result) => {
   //   console.log(result);
   //   const stringifiedResult = result.value;
