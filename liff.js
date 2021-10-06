@@ -17,38 +17,40 @@ function initializeLiff(liffId) {
 
 // QRコードリーダーを表示する
 function scanCode() {
+  console.log("scanCode");
   liff
-    .scanCodeV2()
-    .then((result) => {
-      console.log(result);
-      const stringifiedResult = result.value;
-      console.log(stringifiedResult);
+    .init({
+      liffId: liffId,
+    })
+    .then(() => {
       liff
-        .sendMessages([
-          {
-            type: "text",
-            text: stringifiedResult,
-          },
-        ])
-        .then(() => {
-          liff.closeWindow();
+        .scanCodeV2()
+        .then((result) => {
+          console.log(result);
+          const stringifiedResult = result.value;
+          console.log(stringifiedResult);
+          liff
+            .sendMessages([
+              {
+                type: "text",
+                text: stringifiedResult,
+              },
+            ])
+            .then(() => {
+              liff.closeWindow();
+            })
+            .catch((error) => {
+              window.alert("Error sending message: " + error);
+            });
         })
-        .catch((error) => {
-          window.alert("Error sending message: " + error);
+        .catch((err) => {
+          alert(err);
+          alert("scanCode failed!");
         });
     })
     .catch((err) => {
-      alert(err);
-      alert("scanCode failed!");
+      console.log(err);
     });
-}
-
-function sendMessage(text) {
-  if (liff.isInClient()) {
-    sendMessages(text);
-  } else {
-    shareTargetPicker(text);
-  }
 }
 
 // LINEトーク画面上でメッセージ送信
