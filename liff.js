@@ -24,27 +24,25 @@ function initializeLiff(liffId) {
 
 // QRコードリーダーを表示する
 function scanCode() {
-  console.log("scanCode");
-
   liff
     .scanCodeV2()
     .then((result) => {
       console.log(result);
       const stringifiedResult = result.value;
       console.log(stringifiedResult);
-      liff
-        .sendMessages([
-          {
-            type: "text",
-            text: stringifiedResult,
-          },
-        ])
-        .then(() => {
-          liff.closeWindow();
-        })
-        .catch((error) => {
-          window.alert("Error sending message: " + error);
-        });
+      // liff
+      //   .sendMessages([
+      //     {
+      //       type: "text",
+      //       text: stringifiedResult,
+      //     },
+      //   ])
+      //   .then(() => {
+      //     liff.closeWindow();
+      //   })
+      //   .catch((error) => {
+      //     window.alert("Error sending message: " + error);
+      //   });
     })
     .catch((err) => {
       alert(err);
