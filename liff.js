@@ -16,7 +16,7 @@ function initializeLiff(liffId) {
                 window.alert("LINEアカウントにログインしてください。");
                 liff.login({redirectUri: location.href});
             }
-            liff.scanCode().then(result => {
+            liff.scanCodeV2().then(result => {
                 const stringifiedResult = result.value;
                 liff.sendMessages([{
                     'type': 'text',
