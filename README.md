@@ -1,0 +1,2 @@
+# liff-sample-app
+LIFFアプリのサンプルプロジェクトです。
