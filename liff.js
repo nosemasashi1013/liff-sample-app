@@ -1,3 +1,25 @@
+$(function () {
+  // liffId: LIFF URL "https://liff.line.me/xxx"のxxxに該当する箇所
+  // LINE DevelopersのLIFF画面より確認可能
+  var liffId = "1656501658-pq7GAjnA";
+  initializeLiff(liffId);
+
+  $(".open-camera-btn").click(function () {
+    console.log("camera open");
+    scanCode();
+  });
+
+  $(".submit-btn").click(function () {
+    var date = $('input[type="date"]').val();
+    var name = $('input[type="text"]').val();
+
+    var msg = `希望日：${date}\n氏名：${name}`;
+    sendMessage(msg);
+
+    return false;
+  });
+});
+
 function initializeLiff(liffId) {
   liff
     .init({
@@ -29,19 +51,19 @@ function scanCode() {
           console.log(result);
           const stringifiedResult = result.value;
           console.log(stringifiedResult);
-          // liff
-          //   .sendMessages([
-          //     {
-          //       type: "text",
-          //       text: stringifiedResult,
-          //     },
-          //   ])
-          //   .then(() => {
-          //     liff.closeWindow();
-          //   })
-          //   .catch((error) => {
-          //     window.alert("Error sending message: " + error);
-          //   });
+          liff
+            .sendMessages([
+              {
+                type: "text",
+                text: stringifiedResult,
+              },
+            ])
+            .then(() => {
+              liff.closeWindow();
+            })
+            .catch((error) => {
+              window.alert("Error sending message: " + error);
+            });
         })
         .catch((err) => {
           alert(err);
@@ -69,23 +91,3 @@ function sendMessages(text) {
       alert("Failed to send message " + error);
     });
 }
-
-$(function () {
-  // liffId: LIFF URL "https://liff.line.me/xxx"のxxxに該当する箇所
-  // LINE DevelopersのLIFF画面より確認可能
-  var liffId = "1656501658-pq7GAjnA";
-  initializeLiff(liffId);
-  $(".open-camera-btn").click(function () {
-    console.log("camera open");
-    scanCode();
-  });
-  $("form").submit(function () {
-    var date = $('input[type="date"]').val();
-    var name = $('input[type="text"]').val();
-
-    var msg = `希望日：${date}\n氏名：${name}`;
-    sendMessage(msg);
-
-    return false;
-  });
-});
