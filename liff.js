@@ -15,6 +15,7 @@ function initializeLiff(liffId) {
     });
 }
 
+// QRコードリーダーを表示する
 function scanCode() {
   liff
     .scanCodeV2()
@@ -22,6 +23,19 @@ function scanCode() {
       console.log(result);
       const stringifiedResult = result.value;
       console.log(stringifiedResult);
+      liff
+        .sendMessages([
+          {
+            type: "text",
+            text: stringifiedResult,
+          },
+        ])
+        .then(() => {
+          liff.closeWindow();
+        })
+        .catch((error) => {
+          window.alert("Error sending message: " + error);
+        });
     })
     .catch((err) => {
       alert(err);
