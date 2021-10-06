@@ -173,3 +173,20 @@ function sendMessages(text) {
       alert("Failed to send message " + error);
     });
 }
+
+$(function () {
+  $(".open-camera-btn").click(function () {
+    scanCode();
+  });
+
+  // 送信
+  $("form").submit(function () {
+    var date = $('input[type="date"]').val();
+    var name = $('input[type="text"]').val();
+
+    var msg = `希望日：${date}\n人数：${number}\n氏名：${name}`;
+    sendMessage(msg);
+
+    return false;
+  });
+});
