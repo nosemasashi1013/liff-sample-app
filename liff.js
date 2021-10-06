@@ -29,19 +29,19 @@ function scanCode() {
           console.log(result);
           const stringifiedResult = result.value;
           console.log(stringifiedResult);
-          liff
-            .sendMessages([
-              {
-                type: "text",
-                text: stringifiedResult,
-              },
-            ])
-            .then(() => {
-              liff.closeWindow();
-            })
-            .catch((error) => {
-              window.alert("Error sending message: " + error);
-            });
+          // liff
+          //   .sendMessages([
+          //     {
+          //       type: "text",
+          //       text: stringifiedResult,
+          //     },
+          //   ])
+          //   .then(() => {
+          //     liff.closeWindow();
+          //   })
+          //   .catch((error) => {
+          //     window.alert("Error sending message: " + error);
+          //   });
         })
         .catch((err) => {
           alert(err);
@@ -80,8 +80,8 @@ $(function () {
     scanCode();
   });
   $("form").submit(function () {
-    var date = $('input[name="date"]').val();
-    var name = $('input[name="text"]').val();
+    var date = $('input[type="date"]').val();
+    var name = $('input[type="text"]').val();
 
     var msg = `希望日：${date}\n氏名：${name}`;
     sendMessage(msg);
