@@ -203,7 +203,7 @@ function initializeLiff(myLiffId) {
     })
     .then(() => {
       liff
-        .scanCodev2()
+        .scanCode()
         .then((result) => {
           const stringifiedResult = result.value;
           liff
