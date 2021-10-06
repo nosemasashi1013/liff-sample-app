@@ -27,7 +27,7 @@ function scanCode() {
     .scanCodeV2()
     .then((result) => {
       const stringifiedResult = result.value;
-      alert(stringifiedResult);
+      console.log(stringifiedResult);
       liff
         .sendMessages([
           {
@@ -74,7 +74,16 @@ function sendMessages(text) {
 
 $(function () {
   $(".open-camera-btn").click(function () {
-    alert("camera open");
+    console.log("camera open");
     scanCode();
+  });
+  $("form").submit(function () {
+    var date = $('input[name="date"]').val();
+    var name = $('input[name="text"]').val();
+
+    var msg = `希望日：${date}\n氏名：${name}`;
+    sendMessage(msg);
+
+    return false;
   });
 });
