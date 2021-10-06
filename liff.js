@@ -22,6 +22,14 @@ function initializeLiff(liffId) {
         });
 }
 
+function sendMessage(text) {
+    if (liff.isInClient()) {
+        sendMessages(text);
+    } else {
+        shareTargetPicker(text);
+    }
+}
+
 // LINEトーク画面上でメッセージ送信
 function sendMessages(text) {
     liff.sendMessages([{
