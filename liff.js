@@ -1,7 +1,8 @@
+const liffId = "1656505610-JBZmjw3A";
+
 $(document).ready(function () {
   // liffId: LIFF URL "https://liff.line.me/xxx"のxxxに該当する箇所
   // LINE DevelopersのLIFF画面より確認可能
-  var liffId = "1656505610-JBZmjw3A";
   initializeLiff(liffId);
 });
 
@@ -24,7 +25,8 @@ function initializeLiff(liffId) {
 
 // QRコードリーダーを表示する
 async function scanCode() {
-  await liff.scanCode();
+  await liff.initializeLiff(liffId);
+  await liff.scanCodeV2();
 }
 
 // LINEトーク画面上でメッセージ送信
