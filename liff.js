@@ -16,8 +16,7 @@ async function scanCode() {
   if (!result) return;
   // QRコードから取得したデータをメッセージで送る
   const stringifiedResult = result.value;
-  await sendMessages(stringifiedResult);
-  liff.closeWindow();
+  sendMessages(stringifiedResult);
 }
 
 /**
