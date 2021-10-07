@@ -24,8 +24,8 @@ function initializeLiff(liffId) {
 }
 
 // QRコードリーダーを表示する
-async function scanCode() {
-  await liff
+function scanCode() {
+  liff
     .scanCodeV2()
     .then((result) => {
       const stringifiedResult = result.value;
@@ -67,7 +67,7 @@ function sendMessages(text) {
 
 $(function () {
   $(".open-camera-btn").click(function () {
-    await scanCode();
+    scanCode();
   });
 
   $(".submit-btn").click(function () {
