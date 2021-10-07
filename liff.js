@@ -24,7 +24,6 @@ function initializeLiff(liffId) {
 
 // QRコードリーダーを表示する
 async function scanCode() {
-  await initializeLiff(liffId);
   await liff.scanCodeV2();
   // .then((result) => {
   //   console.log(result);
