@@ -13,13 +13,11 @@ function initializeLiff(liffId) {
  */
 async function scanCode() {
   const result = await liff.scanCodeV2();
-  try {
-    const stringifiedResult = result.value;
-    await sendMessages(stringifiedResult);
-    liff.closeWindow();
-  } catch (err) {
-    alert("scanCode failed " + err);
-  }
+  if (!result) return;
+  // QRコードから取得したデータをメッセージで送る
+  const stringifiedResult = result.value;
+  await sendMessages(stringifiedResult);
+  liff.closeWindow();
 }
 
 /**
