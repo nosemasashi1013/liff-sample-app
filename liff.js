@@ -1,71 +1,51 @@
-const liffId = "1656505610-JBZmjw3A";
-
-$(document).ready(function () {
-  // liffId: LIFF URL "https://liff.line.me/xxx"のxxxに該当する箇所
-  // LINE DevelopersのLIFF画面より確認可能
-  initializeLiff(liffId);
-});
-
+/**
+ * LIFFアプリを初期化
+ * @param {string} liffId LIFF ID
+ */
 function initializeLiff(liffId) {
-  liff
-    .init({
-      liffId: liffId,
-    })
-    .then(() => {
-      // Webブラウザからアクセスされた場合は、LINEにログインする
-      if (!liff.isInClient() && !liff.isLoggedIn()) {
-        window.alert("LINEアカウントにログインしてください。");
-        liff.login();
-      }
-    })
-    .catch((err) => {
-      console.log("LIFF Initialization failed ", err);
-    });
+  liff.init({
+    liffId: liffId,
+  });
 }
 
-// QRコードリーダーを表示する
-function scanCode() {
-  liff
-    .scanCodeV2()
-    .then((result) => {
-      const stringifiedResult = result.value;
-      liff
-        .sendMessages([
-          {
-            type: "text",
-            text: stringifiedResult,
-          },
-        ])
-        .then(() => {
-          liff.closeWindow();
-        })
-        .catch((error) => {
-          window.alert("Error sending message: " + error);
-        });
-    })
-    .catch((err) => {
-      window.alert("scanCode failed!");
-    });
+/**
+ * QRコードリーダーを表示する
+ */
+async function scanCode() {
+  const result = await liff.scanCodeV2();
+  try {
+    const stringifiedResult = result.value;
+    await sendMessages(stringifiedResult);
+    liff.closeWindow();
+  } catch (err) {
+    alert("scanCode failed " + err);
+  }
 }
 
-// LINEトーク画面上でメッセージ送信
-function sendMessages(text) {
-  liff
-    .sendMessages([
+/**
+ * LINEトーク画面上でメッセージ送信
+ * @param {string} text 送信メッセージ
+ */
+async function sendMessages(text) {
+  try {
+    await liff.sendMessages([
       {
         type: "text",
         text: text,
       },
-    ])
-    .then(function () {
-      liff.closeWindow();
-    })
-    .catch(function (error) {
-      alert("Failed to send message " + error);
-    });
+    ]);
+    liff.closeWindow();
+  } catch (err) {
+    alert("Failed to send message " + err);
+  }
 }
 
 $(function () {
+  // liffId: LIFF URL "https://liff.line.me/xxx"のxxxに該当する箇所
+  // LINE DevelopersのLIFF画面より確認可能
+  const liffId = "1656505610-JBZmjw3A";
+  initializeLiff(liffId);
+
   $(".open-camera-btn").click(function () {
     scanCode();
   });
@@ -80,41 +60,3 @@ $(function () {
     return false;
   });
 });
-
-// window.onload = function () {
-//   const defaultLiffId = "1656505610-JBZmjw3A";
-//   initializeLiff(defaultLiffId);
-// };
-
-// function initializeLiff(myLiffId) {
-//   liff
-//     .init({
-//       liffId: myLiffId,
-//     })
-//     .then(() => {
-//       liff
-//         .scanCodeV2()
-//         .then((result) => {
-//           const stringifiedResult = result.value;
-//           liff
-//             .sendMessages([
-//               {
-//                 type: "text",
-//                 text: stringifiedResult,
-//               },
-//             ])
-//             .then(() => {
-//               liff.closeWindow();
-//             })
-//             .catch((error) => {
-//               window.alert("Error sending message: " + error);
-//             });
-//         })
-//         .catch((err) => {
-//           window.alert("scanCode failed!");
-//         });
-//     })
-//     .catch((err) => {
-//       window.alert("Something went wrong with LIFF initialization.");
-//     });
-// }
