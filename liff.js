@@ -25,17 +25,13 @@ async function scanCode() {
  * @param {string} text 送信メッセージ
  */
 async function sendMessages(text) {
-  try {
-    await liff.sendMessages([
-      {
-        type: "text",
-        text: text,
-      },
-    ]);
-    liff.closeWindow();
-  } catch (err) {
-    alert("Failed to send message " + err);
-  }
+  await liff.sendMessages([
+    {
+      type: "text",
+      text: text,
+    },
+  ]);
+  liff.closeWindow();
 }
 
 $(function () {
