@@ -50,5 +50,7 @@ $(function () {
 
     var msg = `希望日：${date}\n氏名：${name}`;
     sendMessages(msg);
+
+    return false;
   });
 });
