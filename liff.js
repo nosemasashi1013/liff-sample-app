@@ -25,7 +25,6 @@ function initializeLiff(liffId) {
 
 // QRコードリーダーを表示する
 async function scanCode() {
-  await liff.initializeLiff(liffId);
   await liff.scanCodeV2();
 }
 
@@ -48,7 +47,7 @@ function sendMessages(text) {
 
 $(function () {
   $(".open-camera-btn").click(function () {
-    scanCode();
+    await scanCode();
   });
 
   $(".submit-btn").click(function () {
