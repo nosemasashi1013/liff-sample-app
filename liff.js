@@ -44,10 +44,10 @@ $(function () {
   });
 
   $(".submit-btn").click(function () {
-    var date = $('input[type="date"]').val();
-    var name = $('input[type="text"]').val();
+    const date = $('input[type="date"]').val();
+    const name = $('input[type="text"]').val();
 
-    var msg = `希望日：${date}\n氏名：${name}`;
+    const msg = `希望日：${date}\n氏名：${name}`;
     sendMessages(msg);
 
     return false;
