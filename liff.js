@@ -67,11 +67,6 @@ function sendMessages(text) {
 }
 
 $(function () {
-  // liffId: LIFF URL "https://liff.line.me/xxx"のxxxに該当する箇所
-  // LINE DevelopersのLIFF画面より確認可能
-  var liffId = "1656501658-pq7GAjnA";
-  initializeLiff(liffId);
-
   $(".open-camera-btn").click(function () {
     console.log("open");
     scanCode();
